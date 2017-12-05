@@ -1,0 +1,15 @@
+Process_A,Process_B
+
+started A,started B
+
+[Msg1 from A],[Msg1 from B]
+
+Running A,[Msg2 from B]
+
+[Msg2 from A],Running B
+
+Runing A,Running B
+
+[Msg3 from A],[Msg3 from B]
+
+Runing A,Running B

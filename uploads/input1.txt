@@ -1,0 +1,90 @@
+   String filename = null;
+
+        ServletFileUpload upload = new ServletFileUpload(); // TODO Auto-generated catch block
+        // System.out.println(  getValue(request.getPart("fname")));
+        response.setContentType("text/plain");
+        FileItemIterator iterator = null;
+        try {
+            iterator = upload.getItemIterator(request);
+        } catch (FileUploadException ex) {
+            Logger.getLogger(ApplyJob.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            while (iterator.hasNext()) {
+                FileItemStream item = null;
+                try {
+                    item = iterator.next();
+                } catch (FileUploadException ex) {
+                    Logger.getLogger(ApplyJob.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
+                if (item.isFormField()) {
+                    System.out.println("Got a form field: " + item.getFieldName() + " " + item);
+
+                } else {
+                    System.out.println("Got an uploaded file: " + item.getFieldName());
+                    filename = item.getName();
+                    
+                  
+                   
+                }
+
+            }
+        } catch (FileUploadException ex) {
+            Logger.getLogger(ApplyJob.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        System.out.println(filename);
+
+        HttpSession sessionUser = request.getSession();
+        String username = (String) sessionUser.getAttribute("user");
+
+        String jb = (String) sessionUser.getAttribute("jb");/// jb is job title name
+
+        char ab[] = new char[filename.length() - 4];
+
+        boolean flag = false;
+        int l = 0;
+        for (int i = 0; filename.charAt(i) != '.'; i++) {
+
+            if (filename.charAt(i) == ':') {
+                i += 2;
+                for (int j = i; filename.charAt(j) != '.'; j++) {
+                    ab[l++] = (char) filename.codePointAt(j);
+
+                }
+                flag = true;
+            }
+            if (flag) {
+                break;
+            }
+
+        }
+
+        //  System.out.println(ab);
+            filename.equals(ab);
+        System.out.println(ab);
+//        ApplyJOBS aj = new ApplyJOBS();
+//
+//        aj.setUsername(username);
+//
+//        aj.setJob_title(jb);
+//        aj.setFilename(filename);// setting uploaded file name
+
+//        try {
+//            aj.Job_user_details();
+//        } catch (ClassNotFoundException | SQLException ex) {
+//            Logger.getLogger(ApplyJob.class.getName()).log(Level.SEVERE, null, ex);
+//        }
